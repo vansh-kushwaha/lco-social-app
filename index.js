@@ -2,6 +2,13 @@ const express = require("express");
 const app = express();
 const dateFormate = require("date-format");
 
+// swagger docs related
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.get("/", (req, res) => {
   res.send("hello from express");
 });
@@ -42,7 +49,7 @@ app.get("/api/linkedin", (req, res) => {
 app.get("/api/:name", (req, res) => {
   const value = req.params.name;
 
-  res.status(200).json(value);
+  res.status(200).json({ value });
 });
 
 const PORT = process.env.PORT || 8000;

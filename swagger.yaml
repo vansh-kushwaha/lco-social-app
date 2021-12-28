@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Social App
+  description: Our first Social app at LCO -Vansh Kushwaha
+  version: 1.0.1
+
+servers:
+  - url: http://localhost:8000/api
+    description: LCO social app
+  - url: http://localhost:8000
+    description: dummy link
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /instagram:
+    get:
+      summary: returns the username, followers, follows & date at which request is made.
+      responses:
+        "200": # status code
+          description: returns object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  followers:
+                    type: string
+                  follows:
+                    type: string
+                  date:
+                    type: string
+
+  /{name}:
+    get:
+      summary: returns whatever is passed in params
+      parameters:
+        - name: name
+          in: path
+          default: 6
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200": # status code
+          description: returns object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
